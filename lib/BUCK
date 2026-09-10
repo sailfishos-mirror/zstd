@@ -132,7 +132,7 @@ cxx_library(
     exported_headers=[
         'zstd_errors.h',
         'common/error_private.h',
-    ]
+    ],
     srcs=['common/error_private.c'],
 )
 
