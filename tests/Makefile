@@ -237,7 +237,10 @@ CLEAN += invalidDictionaries
 invalidDictionaries : $(ZSTD_OBJECTS) invalidDictionaries.c
 
 CLEAN += legacy
-legacy : CPPFLAGS += -UZSTD_LEGACY_SUPPORT -DZSTD_LEGACY_SUPPORT=4
+# legacy.c adapts to the level it is compiled with : it only tests the frames
+# this level can decode. Default to the oldest format, to cover all decoders.
+LEGACY_TEST_LEVEL ?= 1
+legacy : CPPFLAGS += -UZSTD_LEGACY_SUPPORT -DZSTD_LEGACY_SUPPORT=$(LEGACY_TEST_LEVEL)
 legacy : $(ZSTD_FILES) $(ALL_LEGACY_FILES) legacy.c
 
 CLEAN += decodecorpus
